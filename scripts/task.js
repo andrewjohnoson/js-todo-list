@@ -1,8 +1,8 @@
-import { createDatepickerById, setCurrentDateById } from "./datepicker.js";
+import { datepicker } from "./datepicker.js";
 
 /* создание дата-пикера для выбора даты при создании задачи */
 
-const taskDateId = 'task-date';
+const taskDateTag = '[data-js-form-input-task-date]';
 
 createDatepickerById(taskDateId);
 
@@ -39,7 +39,7 @@ export const setAddTaskWindowAction = () => {
 /* изменение цвета фона задачи */
 
 const clickOnTask = (taskElement) => {
-    taskElement.classList.toggle('taskIsDone');
+    taskElement.classList.toggle('is-done');
 };
 
 export const setChangeTaskBackgroundAction = () => {
@@ -64,7 +64,7 @@ export const setDeleteTaskAction = () => {
         if (trashBinButton) {
             const taskElement = trashBinButton.closest('.task');
     
-            taskElement.classList.add('task-is-deleted');
+            taskElement.classList.add('is-deleted');
     
             setTimeout(() => {
                 taskElement.remove();
@@ -72,3 +72,4 @@ export const setDeleteTaskAction = () => {
         }
     });
 };
+

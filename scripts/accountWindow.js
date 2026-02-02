@@ -22,7 +22,7 @@ const calcAccountWindowRelativelyHeader = () => {
     const header = document.querySelector('header');
     const headerPosition = header.getBoundingClientRect();
 
-    const accountWindowContent = document.querySelector('.popup--account-content');
+    const accountWindowContent = document.querySelector('.popup--account-window');
 
     const accountWindowContentRight = headerPosition.left;
 

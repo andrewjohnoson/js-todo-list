@@ -1,18 +1,31 @@
-import * as datepicker from './datepicker.js';
+import { datepicker } from './datepicker.js';
 import * as accountWindow from './accountWindow.js';
-import { setAmountOfTasks } from './amountOfTasks.js';
-import * as task from './task.js';
+import { amountOfTasks } from './amountOfTasks.js';
 
-datepicker.setCurrentDateById('btn--date-picker');
-datepicker.setDatepickerRegionSetting();
-datepicker.createDatepickerById('btn--date-picker');
+import { addTaskPopup, accountWindowPopup } from './Popup.js';
 
-accountWindow.setAccountWindowAction();
-accountWindow.setPositionOfAccountWindow();
+const addTaskPopupElementsIDs = {
+    idOfPopup: 'popup--add-task',
+    idOfPopupOpenButton: 'task-list__btn--add-task',
+    idOfPopupCloseButton: 'popup--add-task__btn--cancel',
+};
 
-setAmountOfTasks();
+addTaskPopup.bindEvents(addTaskPopupElementsIDs);
 
-task.setAddTaskWindowAction();
-task.setChangeTaskBackgroundAction();
-task.setDeleteTaskAction();
+const accountWindowPopupElementsIDs = {
+    idOfPopup: 'popup--account-window',
+    idOfPopupOpenButton: 'header__btn--open-account-window',
+};
+
+accountWindowPopup.bindEvents(accountWindowPopupElementsIDs);
+
+datepicker.setCurrentDate('[data-js-dateselector-datefield]');
+datepicker.createDatepicker('[data-js-dateselector-datefield]');
+
+
+amountOfTasks.setAmountOfTasks();
+
+// task.setAddTaskWindowAction();
+// task.setChangeTaskBackgroundAction();
+// task.setDeleteTaskAction();
 
