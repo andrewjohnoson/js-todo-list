@@ -449,11 +449,11 @@ main {
     margin-bottom: 25px;
 }
 
-.popup--add-task__btn button:hover {
+.popup--add-task__btn:hover {
     cursor: pointer;
 }
 
-.popup--add-task__btn button:active {
+.popup--add-task__btn:active {
     opacity: 0.899;
 }
 

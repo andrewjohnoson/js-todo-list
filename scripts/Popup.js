@@ -1,4 +1,4 @@
-import { datepicker as datepickerObject } from "./datepicker.js";
+import Datepicker from "./Datepicker.js";
 
 class Popup {
     constructor() {
@@ -50,14 +50,14 @@ export class AddTaskPopup extends Popup {
 
     constructor() {
         super();
-        this.datepicker = datepickerObject;
+        this.datepicker = new Datepicker();
         this.datepicker.setCurrentDate(this.taskDateTag);
     };
 };
 
 export const addTaskPopup = new AddTaskPopup();
 
-class AccountWindowPopup extends Popup {
+export class AccountWindowPopup extends Popup {
     calcAccountWindowRelativelyHeader() {
         const header = document.querySelector('header');
         const headerPosition = header.getBoundingClientRect();

@@ -1,8 +1,9 @@
-import { datepicker } from './datepicker.js';
-import * as accountWindow from './accountWindow.js';
-import { amountOfTasks } from './amountOfTasks.js';
+import Datepicker from './Datepicker.js';
+import AmountOfTasks from './AmountOfTasks.js';
+import { AddTaskPopup, AccountWindowPopup } from './Popup.js';
+import Task from './Task.js';
 
-import { addTaskPopup, accountWindowPopup } from './Popup.js';
+Task.bindEvents();
 
 const addTaskPopupElementsIDs = {
     idOfPopup: 'popup--add-task',
@@ -10,6 +11,7 @@ const addTaskPopupElementsIDs = {
     idOfPopupCloseButton: 'popup--add-task__btn--cancel',
 };
 
+const addTaskPopup = new AddTaskPopup();
 addTaskPopup.bindEvents(addTaskPopupElementsIDs);
 
 const accountWindowPopupElementsIDs = {
@@ -17,12 +19,14 @@ const accountWindowPopupElementsIDs = {
     idOfPopupOpenButton: 'header__btn--open-account-window',
 };
 
+const accountWindowPopup = new AccountWindowPopup();
 accountWindowPopup.bindEvents(accountWindowPopupElementsIDs);
 
+const datepicker = new Datepicker();
 datepicker.setCurrentDate('[data-js-dateselector-datefield]');
 datepicker.createDatepicker('[data-js-dateselector-datefield]');
 
-
+const amountOfTasks = new AmountOfTasks();
 amountOfTasks.setAmountOfTasks();
 
 // task.setAddTaskWindowAction();

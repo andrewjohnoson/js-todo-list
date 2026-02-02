@@ -1,75 +1,49 @@
-import { datepicker } from "./datepicker.js";
+export default class Task {
 
-/* создание дата-пикера для выбора даты при создании задачи */
+    static taskClasses = {
+        background: 'is-done',
+        task: 'task-list__task',
+        trashBinButton: 'task-list__btn--trash-bin',
+        isDeleted: 'is-deleted',
+    };
 
-const taskDateTag = '[data-js-form-input-task-date]';
+    constructor() {
+    };
 
-createDatepickerById(taskDateId);
+    static bindEvents() {
+        this.clickOnTask();
+        this.clickOnDeleteButton();
+    };
 
+    static changeTaskBackground(taskElement) {
+        taskElement.classList.toggle(this.taskClasses.background);
+    };
 
-/* открытие/закрытие поп-апа для создания задач */
+    static clickOnTask() {
+        document.addEventListener('click', (event) => {
+            const taskElement = event.target.closest(`.${this.taskClasses.task}`);
+            
+            const isTrashBinButton = Boolean(event.target.closest(`.${this.taskClasses.trashBinButton}`));
 
-const addTaskWindow = document.getElementById('popup--add-task');
+            if (taskElement && !isTrashBinButton) {
+                this.changeTaskBackground(taskElement);
+            }
+        });
+    };
 
-// const addTaskWindowAddButton = document.getElementById('popup__btn--add-task-add');
+    static clickOnDeleteButton() {
+        document.addEventListener('click', (event) => {
+            const trashBinButtton = event.target.closest(`.${this.taskClasses.trashBinButton}`);
 
-const addTaskWindowCancelButton = document.getElementById('popup__btn--add-task-cancel');
+            if (trashBinButtton) {
+                const taskElement = trashBinButtton.closest(`.${this.taskClasses.task}`);
 
-const addTaskButton = document.getElementById('btn--add-task');
+                taskElement.classList.add(this.taskClasses.isDeleted);
 
-export const setAddTaskWindowAction = () => {
-    addTaskButton.addEventListener('click', (event) => {
-        event.preventDefault();
-        setCurrentDateById(taskDateId);
-        addTaskWindow.classList.add('active');
-    });
-
-    addTaskWindowCancelButton.addEventListener('click', () => {
-        addTaskWindow.classList.remove('active');
-    });
-
-    addTaskWindow.addEventListener('click', (event) => {
-        if (event.target === addTaskWindow) {
-            addTaskWindow.classList.remove('active');
-        }
-    });
+                setTimeout(() => {
+                    taskElement.remove();
+                }, 500);
+            }
+        });
+    };
 };
-
-
-/* изменение цвета фона задачи */
-
-const clickOnTask = (taskElement) => {
-    taskElement.classList.toggle('is-done');
-};
-
-export const setChangeTaskBackgroundAction = () => {
-    document.addEventListener('click', (event) => {
-        const taskElement = event.target.closest('.task');
-
-        const element = event.target.closest('.btn--trash-bin');
-        const isTrashBin = element?.classList?.contains('btn--trash-bin');
-
-        if (taskElement && !isTrashBin) {
-            clickOnTask(taskElement); 
-        }
-    });
-};
-
-/* удаление задачи */
-
-export const setDeleteTaskAction = () => {
-    document.addEventListener('click', (event) => {
-        const trashBinButton = event.target.closest('.btn--trash-bin');
-    
-        if (trashBinButton) {
-            const taskElement = trashBinButton.closest('.task');
-    
-            taskElement.classList.add('is-deleted');
-    
-            setTimeout(() => {
-                taskElement.remove();
-            }, 500);
-        }
-    });
-};
-

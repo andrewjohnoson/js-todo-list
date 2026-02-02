@@ -1,6 +1,4 @@
-// настройка дата-пикера для СНГ-региона
-
-class Datepicker {
+export default class Datepicker {
     localSettings = {
         closeText: "Закрыть",
         currentText: "Сегодня",
@@ -49,5 +47,3 @@ class Datepicker {
         $(`${fieldSelector}`).datepicker();
     }
 }
-
-export const datepicker = new Datepicker();

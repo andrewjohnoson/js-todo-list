@@ -1,4 +1,4 @@
-class AmountOfTasks {
+export default class AmountOfTasks {
     constructor() {
     };
 
@@ -21,5 +21,3 @@ class AmountOfTasks {
     };
     
 }
-
-export const amountOfTasks = new AmountOfTasks();
