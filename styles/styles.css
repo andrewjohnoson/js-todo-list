@@ -467,31 +467,43 @@ main {
 
 /* ---- Registration Form and Common Fields ---- */
 
-.registrationMain {
+.registration {
     max-width: 315px;
     margin: auto;
     margin-top: 100px;
 }
 
-.registrationText h1 {
+.registration__title__text {
     font-size: 60px;
+    margin-top: 0;
+    margin-bottom: 0;
 }
 
-.registrationText {
+.registration__title {
     margin-bottom: 25px;
 }
 
-.registrationMain h3 {
+.registration__field {
+    margin-bottom: 10px;
+}
+
+.registration__text {
     font-weight: 350;
     font-size: 20px;
     margin-bottom: 20px;
 }
 
-.registrationField input {
+.registration__text--error {
+    color: rgb(229, 90, 92);
+    font-size: 14px;
+    display: block;
+}
+
+.registration__input {
     width: 100%;
     background: none;
     height: 50px;
-    margin-bottom: 15px;
+    margin-bottom: 5px;
     border: solid white 1px;
     border-radius: 10px;
     opacity: 0.5;
@@ -501,21 +513,21 @@ main {
     box-sizing: border-box;
 }
 
-.registrationField input:hover {
+.registration__input:hover {
     opacity: 1;
 }
 
-.registrationField input:focus {
+.registration__input:focus {
     opacity: 1;
     outline: none;
 }
 
-.registrationField input::placeholder {
+.registration__input::placeholder {
     color: white;
     font-family: "Inter", sans-serif;
 }
 
-.registrationButton {
+.registration__btn {
     font-family: "Inter", sans-serif;
     font-size: 20px;
     font-weight: bold;
@@ -528,25 +540,25 @@ main {
     margin-bottom: 25px;
 }
 
-.registrationButton:hover {
+.registration__btn:hover {
     cursor: pointer;
 }
 
-.registrationButton:active {
+.registration__btn:active {
     opacity: 0.899;
 }
 
-.registrationLink {
+.registration__link {
     text-align: center;
 }
 
-.registrationLink a {
+.registration__link__text {
     color: white;
     text-decoration: none;
     opacity: 0.8;
     transition: 0.15s;
 }
 
-.registrationLink a:hover {
+.registration__link__text:hover {
     opacity: 1;
 }

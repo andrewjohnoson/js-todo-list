@@ -10,26 +10,49 @@
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="registrationMain">
-        <div class="registrationText">
-            <h1>Мой</h1>
-            <h1>Список</h1>
-            <h1>Задач</h1>
+    <div class="registration">
+        <div class="registration__title">
+            <h1 class="registration__title__text">Мой</h1>
+            <h1 class="registration__title__text">Список</h1>
+            <h1 class="registration__title__text">Задач</h1>
         </div>
 
-        <h3>Регистрация</h3>
+        <h3 class="registration__text">Регистрация</h3>
 
-        <form method="post" action="registration.html">
-            <div class="registrationField">
-                <input type="text" name="login" placeholder="Логин"><br>
-                <input type="password" name="password" placeholder="Пароль"><br>
+        <form method="post" action="registration.html" novalidate data-js-form>
+            <div class="registration__field">
+                <input
+                    class="input registration__input"
+                    type="text"
+                    name="login"
+                    placeholder="Логин"
+                    required
+                    minlength="1"
+                    maxlength="30"
+                    aria-errormessage="login-errors"/><br>
+                <span class="registration__text--error" id="login-errors" data-js-form-field-errors></span>
             </div>
 
-            <input class="registrationButton" type="submit" value="Зарегестрироваться">
+            <div class="registration__field">
+                <input
+                    class="input registration__input"
+                    type="password"
+                    name="password"
+                    placeholder="Пароль"
+                    minlength="6"
+                    required
+                    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}"
+                    title="Пароль должен содержать хотя бы одну заглавную букву и хотя бы одну строчную букву, хотя бы одну цифру"
+                    aria-errormessage="password-errors"/><br>
+                <span class="registration__text--error" id="password-errors" data-js-form-field-errors></span>
+            </div>
+
+            <input class="registration__btn" type="submit" value="Зарегестрироваться">
         </form>
-        <div class="registrationLink">
-            <a href="login.html">Войти</a>
+        <div class="registration__link">
+            <a class="registration__link__text" href="login.html">Войти</a>
         </div>
     </div>
+    <script src="./scripts/FormValidation.js"></script>
 </body>
 </html>
