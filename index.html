@@ -86,7 +86,7 @@
     <div id="popup--add-task" class="popup popup--add-task-bg">
         <div id="popup--add-task" class="popup--add-task">
             <h2 class="popup--add-task__title">Добавить задачу</h2>
-            <form id="popup--add-task__form" method="post" novalidate>
+            <form id="popup--add-task__form" method="post" novalidate data-js-form>
                 <div class="popup--add-task__field">
                     <p class="popup--add-task__text">Название задачи</p>
                     <input
@@ -97,8 +97,8 @@
                         autocomplete="off"
                         required
                         maxlength="100"
-                        aria-errormessage="task-name-errors ">
-                    <span id="task-name-errors" data-js-form-field-errors></span>
+                        aria-errormessage="task-name-errors">
+                    <span class="registration__text--error" id="task-name-errors" data-js-form-field-errors></span>
                 </div>
                 <div class="popup--add-task__field">
                     <p class="popup--add-task__text">Дата</p>
@@ -111,7 +111,9 @@
                         autocomplete="off"
                         readonly
                         required
+                        aria-errormessage="task-name-errors"
                         data-js-form-task-date>
+                    <span class="registration__text--error" id="task-name-errors" data-js-form-field-errors></span>
                 </div>
     
                 <div class="popup--add-task__btns-container">

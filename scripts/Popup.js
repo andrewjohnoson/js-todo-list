@@ -2,7 +2,7 @@ import Datepicker from "./Datepicker.js";
 
 class Popup {
     constructor() {
-        return this;
+    
     };
 
     getPopUpElements({ idOfPopup, idOfPopupOpenButton, idOfPopupCloseButton }) {
@@ -46,12 +46,13 @@ class Popup {
 };
 
 export class AddTaskPopup extends Popup {
-    taskDateTag = '[data-js-form-input-task-date]';
+    taskDateTag = '[data-js-form-task-date]';
 
     constructor() {
         super();
         this.datepicker = new Datepicker();
         this.datepicker.setCurrentDate(this.taskDateTag);
+        this.datepicker.createDatepicker(this.taskDateTag);
     };
 };
 

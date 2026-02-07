@@ -1,4 +1,4 @@
- class FormValidation {
+ export default class FormValidation {
     selectors = {
         form: '[data-js-form]',
         errorText: '[data-js-form-field-errors]',
@@ -21,12 +21,16 @@
 
         fieldErrorTextElement.innerHTML = errorMessages
             .map((message) => `<span class="registration__text--error">${message}</span>`)
-            .join(''); 
+            .join('');
     }
 
     validateField(fieldElement) {
         const errors = fieldElement.validity;
         const errorMessages = [];
+
+        if (fieldElement.id === 'task-date') {
+            return;
+        }
 
         Object.entries(this.errorMessages).forEach(([errorType, getErrorMessage]) => {
             if (errors[errorType]) {
@@ -52,6 +56,25 @@
         }
     };
 
+    resetEvent(event) {
+        const formElement = event.target.closest(this.selectors.form);
+
+        if (!formElement) {
+            return;
+        }
+
+        const requiredElements = [...formElement.elements].filter(({ required }) => required);
+
+        requiredElements.forEach((element) => {
+            const parentElement = element.parentElement;
+            const fieldErrorTextElement = parentElement.querySelector(this.selectors.errorText);
+
+            if (fieldErrorTextElement.innerHTML) {
+                fieldErrorTextElement.innerHTML = "";
+            }
+        });
+    }
+
     submitEvent(event) {
         const isFormElement = event.target.matches(this.selectors.form);
 
@@ -60,6 +83,7 @@
         }
 
         const requiredElements = [...event.target.elements].filter(({ required }) => required);
+
         let isFormValid = true;
 
         requiredElements.forEach((element) => {
@@ -82,7 +106,11 @@
 
         document.addEventListener('submit', (event) => {
             this.submitEvent(event);
-        })
+        });
+
+        document.addEventListener('reset', (event) => {
+            this.resetEvent(event);
+        });
     };
  };
 

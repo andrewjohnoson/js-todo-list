@@ -376,7 +376,7 @@ main {
 .popup--add-task {
     position: absolute;
     width: 500px;
-    height: 410px;
+    height: auto;
     top: 160px;
     background-color: #181818;
     justify-self: center;
@@ -413,6 +413,7 @@ main {
     color: white;
     padding: 0 20px 0 20px;
     box-sizing: border-box;
+    margin-bottom: 5px;
 }
 
 .popup--add-task__field__input:hover {
