@@ -2,7 +2,7 @@ export default class AmountOfTasks {
     constructor() {
     };
 
-    makeAmountOfTasksText() {
+    static makeAmountOfTasksText() {
         const amount = document.querySelectorAll('.task-list__task').length; 
         
         if (amount % 10  == 1) {
@@ -14,9 +14,9 @@ export default class AmountOfTasks {
         }
     };
 
-    setAmountOfTasks() {
+    static setAmountOfTasks() {
         const amountOfTasksText = this.makeAmountOfTasksText();
-        console.a
+
         $('#task-list--amount-of-tasks').text(amountOfTasksText);
     };
     

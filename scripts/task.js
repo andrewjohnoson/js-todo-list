@@ -1,5 +1,8 @@
 export default class Task {
 
+    #name = "";
+    #isDone = false;
+
     static taskClasses = {
         background: 'is-done',
         task: 'task-list__task',
@@ -7,7 +10,22 @@ export default class Task {
         isDeleted: 'is-deleted',
     };
 
-    constructor() {
+    toJSON() {
+        return {
+            name: this.name
+        };
+    }
+
+    get name() {
+        return this.#name;
+    }
+
+    set name({ name }) {
+        this.#name = name;
+    }
+
+    constructor({ name }) {
+        this.#name = name;
     };
 
     static bindEvents() {
