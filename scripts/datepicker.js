@@ -15,6 +15,8 @@ export default class Datepicker {
         firstDay: 1,
     };
 
+    #setButtonsTags = {};
+
     setDatepickerLocalSetting() {
         $.datepicker.regional["ru"] = this.localSettings;
         $.datepicker.setDefaults( $.datepicker.regional["ru"] );
@@ -24,9 +26,41 @@ export default class Datepicker {
         this.setDatepickerLocalSetting();
     };  
 
-    getFormattedCurrentDate() {
-        let date = new Date();
+    setButtons(nextButtonTag, prevButtonTag) {
+        this.nextButton = document.querySelector(nextButtonTag);
+        this.prevButton = document.querySelector(prevButtonTag);
 
+        this.#bindButtonEvents();
+    };
+
+    #bindButtonEvents() {
+        this.nextButton.addEventListener('click', this.#nextDate);
+        this.prevButton.addEventListener('click', this.#prevDate);
+    };
+
+    #nextDate = () => {
+        let currentDate = $(`${this.inputSelector}`).val();
+        currentDate = this.parseDate(currentDate);
+
+        let nextDate = new Date(currentDate);
+        nextDate.setTime(nextDate.getTime() + 86400000);
+        nextDate = this.getFormattedDate(nextDate);
+        
+        $(`${this.inputSelector}`).val(nextDate);
+    };
+
+    #prevDate = () => {
+        let currentDate = $(`${this.inputSelector}`).val();
+        currentDate = this.parseDate(currentDate);
+
+        let prevDate = new Date(currentDate);
+        prevDate.setTime(prevDate.getTime() - 86400000);
+        prevDate = this.getFormattedDate(prevDate);
+        
+        $(`${this.inputSelector}`).val(prevDate);
+    };
+
+    getFormattedDate(date) {
         let year = date.getFullYear();
 
         let month = (1 + date.getMonth()).toString();       // если месяц состоит из одной цифры
@@ -38,12 +72,24 @@ export default class Datepicker {
         return day + '.' + month + '.' + year;
     };
 
-    setCurrentDate(inputSelector) {
-        const formattedDate = this.getFormattedCurrentDate();
-        $(`${inputSelector}`).val(formattedDate);
+    parseDate(date) {
+        const [day, month, year] = date.split('.');
+
+        const fullDate = new Date(year, month - 1, day);
+
+        return fullDate;
     }
+
+    setCurrentDate(inputSelector) {
+        const currentDate = new Date();
+
+        this.inputSelector = inputSelector;
+
+        const formattedDate = this.getFormattedDate(currentDate);
+        $(`${this.inputSelector}`).val(formattedDate);
+    };
 
     createDatepicker(fieldSelector) {
         $(`${fieldSelector}`).datepicker();
-    }
+    };
 }

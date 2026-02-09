@@ -26,13 +26,10 @@ accountWindowPopup.bindEvents(accountWindowPopupElementsIDs);
 const datepicker = new Datepicker();
 datepicker.setCurrentDate('[data-js-dateselector-datefield]');
 datepicker.createDatepicker('[data-js-dateselector-datefield]');
+datepicker.setButtons('#data-selector--next-date', '#data-selector--prev-date');
 
 const amountOfTasks = new AmountOfTasks();
 amountOfTasks.setAmountOfTasks();
 
 const formValidation = new FormValidation();
-
-// task.setAddTaskWindowAction();
-// task.setChangeTaskBackgroundAction();
-// task.setDeleteTaskAction();
 
