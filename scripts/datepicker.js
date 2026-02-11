@@ -83,7 +83,7 @@ export default class Datepicker {
     datepickerBindEvent() {
         $(this.inputSelector).datepicker({
             onSelect: function () {
-                TaskList.refreshEventButtons();
+                TaskList.refreshEventDateInput();
             }
         });
 

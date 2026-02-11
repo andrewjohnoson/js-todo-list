@@ -307,14 +307,20 @@ main {
     background-color: #242424;
     border-radius: 17px;
     padding-left: 15px;
-    transition: 0.3s, scale 0.15s;
+    transition: 0.3s, scale 0.15s, transform 0.3s;
     box-sizing: border-box;
     cursor: default;
     align-items: center;
     justify-content: center;
     position: relative;
+    transform: scale(1);
+    opacity: 1;
 }
 
+.task-list__task.is-hidden{
+    transform: scale(0);
+    opacity: 0;
+}
 
 .task-list__task__text {
     font-size: 18px;
@@ -322,7 +328,7 @@ main {
 }
 
 .task-list__task:hover {
-    scale: 101%;
+    transform: scale(1.01);
 }
 
 .task-list__task.is-deleted {

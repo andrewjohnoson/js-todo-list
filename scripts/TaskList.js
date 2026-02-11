@@ -8,6 +8,7 @@ export default class TaskList {
         key: 'taskList',
         taskListSectionTag: '[data-js-task-list-section]',
         dataselectorTag: '[data-js-dateselector-datefield]',
+        taskElementTag: '.task-list__task',
     };
 
     // static tasks = [new Task({ name: "Изучить структуры С++", date: "11.02.2026", isDone: false }), new Task({ name: "Начать изучать React", date: "11.02.2026", isDone: false }), new Task({ name: "Продолжить изучение JavaScript", date: "11.02.2026", isDone: false }), new Task({ name: "Make video", date: "12.02.2026", isDone: false })];
@@ -17,17 +18,42 @@ export default class TaskList {
     };
 
     static refreshEventDateInput() {
-        console.log("handon");
         this.printTasks();
-    }
+    };
 
-    static refreshEventButtons () {
+    static hideCurrentTasks(element) {
+        const taskElements = document.querySelectorAll(this.selectors.taskElementTag);
+
+        if (element.matches('#data-selector--next-date')) {
+            taskElements.forEach((element) => {
+                element.style.transform = "translateX(-200%)";
+                setTimeout(() => {
+                    element.remove();
+                }, 400);
+            });
+        }
+
+        if (element.matches('#data-selector--prev-date')) {
+            taskElements.forEach((element) => {
+                element.style.transform = "translateX(200%)";
+                setTimeout(() => {
+                    element.remove();
+                }, 400);
+            });
+        }
+    };
+
+    static refreshEventButtons() {
         const changeDateButton = document.querySelectorAll('.date-selector__btn--arrow');
 
         if (changeDateButton) {
             changeDateButton.forEach((element) => {
                 element.addEventListener('click', () => {
-                    this.printTasks();
+                    this.hideCurrentTasks(element);
+
+                    setTimeout(() => {
+                        this.printTasks();
+                    }, 300);
                 })
             })
         }
@@ -63,7 +89,7 @@ export default class TaskList {
             if (element) {
                 this.taskListSectionElement.innerHTML += 
                 /*html*/`
-                    <div class="task-list__task">
+                    <div class="task-list__task is-hidden">
                         <h3 class="task-list__task__text">${ element?.name }</h3>
                         <div class="task-list__btn--trash-bin">
                             <svg width="24" height="26" viewBox="0 0 24 26" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -71,12 +97,24 @@ export default class TaskList {
                             </svg>
                         </div>
                     </div>
-                `
+                `;
             }
         });
 
+        this.showTasks();
+
         AmountOfTasks.setAmountOfTasks();
     }
+
+    static showTasks() {
+        const taskElement = document.querySelectorAll(this.selectors.taskElementTag);
+
+        taskElement.forEach((element) => {
+            setTimeout(() => {
+                element.classList.remove('is-hidden');
+            }, 300);
+        });
+    };
 
     static saveTasks() {
         let tasksObj = {};
