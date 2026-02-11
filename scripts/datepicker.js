@@ -1,3 +1,7 @@
+import DateController from './DateController.js';
+import Task from './Task.js';
+import TaskList from './TaskList.js';
+
 export default class Datepicker {
     localSettings = {
         closeText: "Закрыть",
@@ -15,7 +19,7 @@ export default class Datepicker {
         firstDay: 1,
     };
 
-    #setButtonsTags = {};
+    inputSelector = "";
 
     setDatepickerLocalSetting() {
         $.datepicker.regional["ru"] = this.localSettings;
@@ -24,72 +28,65 @@ export default class Datepicker {
 
     constructor() {
         this.setDatepickerLocalSetting();
-    };  
+    };
 
-    setButtons(nextButtonTag, prevButtonTag) {
+    set inputSelector(inputSelector) {
+        this.inputSelector = inputSelector;
+    }
+
+    setButtons(nextButtonTag = "", prevButtonTag = "") {
         this.nextButton = document.querySelector(nextButtonTag);
         this.prevButton = document.querySelector(prevButtonTag);
 
         this.#bindButtonEvents();
+        this.datepickerBindEvent();
     };
 
     #bindButtonEvents() {
-        this.nextButton.addEventListener('click', this.#nextDate);
-        this.prevButton.addEventListener('click', this.#prevDate);
+        this.nextButton?.addEventListener('click', this.#nextDate);
+        this.prevButton?.addEventListener('click', this.#prevDate);
     };
 
     #nextDate = () => {
         let currentDate = $(`${this.inputSelector}`).val();
-        currentDate = this.parseDate(currentDate);
+        currentDate = DateController.parseDate(currentDate);
 
         let nextDate = new Date(currentDate);
         nextDate.setTime(nextDate.getTime() + 86400000);
-        nextDate = this.getFormattedDate(nextDate);
+        nextDate = DateController.getFormattedDate(nextDate);
         
         $(`${this.inputSelector}`).val(nextDate);
     };
 
     #prevDate = () => {
         let currentDate = $(`${this.inputSelector}`).val();
-        currentDate = this.parseDate(currentDate);
+        currentDate = DateController.parseDate(currentDate);
 
         let prevDate = new Date(currentDate);
         prevDate.setTime(prevDate.getTime() - 86400000);
-        prevDate = this.getFormattedDate(prevDate);
+        prevDate = DateController.getFormattedDate(prevDate);
         
         $(`${this.inputSelector}`).val(prevDate);
     };
 
-    getFormattedDate(date) {
-        let year = date.getFullYear();
-
-        let month = (1 + date.getMonth()).toString();       // если месяц состоит из одной цифры
-        month = month.length > 1 ? month : '0' + month;     // то мы добавляем перед ним ноль
-
-        let day = date.getDate().toString();
-        day = day.length > 1 ? day : '0' + day;
-
-        return day + '.' + month + '.' + year;
-    };
-
-    parseDate(date) {
-        const [day, month, year] = date.split('.');
-
-        const fullDate = new Date(year, month - 1, day);
-
-        return fullDate;
-    }
-
-    setCurrentDate(inputSelector) {
+    setCurrentDate() {
         const currentDate = new Date();
 
-        this.inputSelector = inputSelector;
-
-        const formattedDate = this.getFormattedDate(currentDate);
+        const formattedDate = DateController.getFormattedDate(currentDate);
         $(`${this.inputSelector}`).val(formattedDate);
     };
 
-    createDatepicker(fieldSelector) {
+    static createDatepicker(fieldSelector) {
         $(`${fieldSelector}`).datepicker();
+    };
+
+    datepickerBindEvent() {
+        $(this.inputSelector).datepicker({
+            onSelect: function () {
+                TaskList.refreshEventButtons();
+            }
+        });
+
+        TaskList.refreshEventButtons();
     };
 }

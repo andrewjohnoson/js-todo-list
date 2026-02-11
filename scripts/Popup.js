@@ -1,9 +1,7 @@
 import Datepicker from "./Datepicker.js";
 
 class Popup {
-    constructor() {
-    
-    };
+    constructor() {};
 
     getPopUpElements({ idOfPopup, idOfPopupOpenButton, idOfPopupCloseButton }) {
         this.popup = document.getElementById(`${idOfPopup}`);
@@ -51,8 +49,9 @@ export class AddTaskPopup extends Popup {
     constructor() {
         super();
         this.datepicker = new Datepicker();
-        this.datepicker.setCurrentDate(this.taskDateTag);
-        this.datepicker.createDatepicker(this.taskDateTag);
+        this.datepicker.inputSelector = this.taskDateTag;
+        this.datepicker.setCurrentDate();
+        Datepicker.createDatepicker(this.taskDateTag);
     };
 };
 

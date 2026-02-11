@@ -1,7 +1,10 @@
+import AmountOfTasks from "./AmountOfTasks.js";
+
 export default class Task {
 
-    #name = "";
-    #isDone = false;
+    name = "";
+    date = "";
+    isDone = false;
 
     static taskClasses = {
         background: 'is-done',
@@ -12,20 +15,28 @@ export default class Task {
 
     toJSON() {
         return {
-            name: this.name
+            name: this.name,
+            date: this.date,
+            isDone: this.isDone
         };
     }
 
     get name() {
-        return this.#name;
+        return this.name;
     }
 
-    set name({ name }) {
-        this.#name = name;
+    get date() {
+        return this.date;
     }
 
-    constructor({ name }) {
-        this.#name = name;
+    get isDone() {
+        return this.isDone;
+    }
+
+    constructor({ name, date, isDone}) {
+        this.name = name;
+        this.date = date;
+        this.isDone = isDone;
     };
 
     static bindEvents() {
@@ -60,6 +71,7 @@ export default class Task {
 
                 setTimeout(() => {
                     taskElement.remove();
+                    AmountOfTasks.setAmountOfTasks();
                 }, 500);
             }
         });

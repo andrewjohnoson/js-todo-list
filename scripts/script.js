@@ -1,5 +1,6 @@
 import Datepicker from './Datepicker.js';
 import { AddTaskPopup, AccountWindowPopup } from './Popup.js';
+import TaskList from './TaskList.js';
 import Task from './Task.js';
 import FormValidation from './formValidation.js';
 
@@ -23,9 +24,13 @@ const accountWindowPopup = new AccountWindowPopup();
 accountWindowPopup.bindEvents(accountWindowPopupElementsIDs);
 
 const datepicker = new Datepicker();
-datepicker.setCurrentDate('[data-js-dateselector-datefield]');
-datepicker.createDatepicker('[data-js-dateselector-datefield]');
+datepicker.inputSelector = '[data-js-dateselector-datefield]';
 datepicker.setButtons('#data-selector--next-date', '#data-selector--prev-date');
+datepicker.setCurrentDate();
+Datepicker.createDatepicker('[data-js-dateselector-datefield]');
 
 const formValidation = new FormValidation();
 
+TaskList.init();
+TaskList.printTasks();
+// TaskList.saveTasks();
